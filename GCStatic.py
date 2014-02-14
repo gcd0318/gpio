@@ -1,50 +1,51 @@
 import time
 from RPi import GPIO
 class eb21(object):
-    board = {0:11, 1:12, 2:13, 3:15, 4:16, 5:18, 6:22, 7:7}
-    bcm = {0:17, 1:18, 2:21, 3:22, 4:23, 5:24, 6:25, 7:4}
+    board = {'p0':11, 'p1':12, 'p2':13, 'p3':15, 'p4':16, 'p5':18, 'p6':22, 'p7':7}
+    bcm = {'p0':17, 'p1':18, 'p2':21, 'p3':22, 'p4':23, 'p5':24, 'p6':25, 'p7':4}
     m = ['LOW', 'HIGH']
-    def setall(mod, s=0):
-        for i in range(len(mod)):
-            p = eb21.board[s+i]
+    def setall(mode, s=0):
+        for i in range(len(mode)):
+            p = eb21.board['p'+str(s+i)]
             GPIO.setup(p, GPIO.OUT)
-            GPIO.output(p, mod[i])
+            GPIO.output(p, mode[i])
     def status(mode = GPIO.IN):
         res = {}
-        for i in eb21.board.keys():
-            p = eb21.board[i]
+        for name in eb21.board.keys():
+            p = eb21.board[name]
             GPIO.setup(p, mode)
-            res[i] = eb21.m[GPIO.input(p)]
+            res[name] = eb21.m[GPIO.input(p)]
         return res
-    def set_pin(i, v):
-        p = eb21.board[i]
+    def set_pin(name, v):
+        p = eb21.board[name]
         GPIO.setup(p, GPIO.OUT)
         GPIO.output(p, v)
-        return GPIO.input(eb21.board[i]) == v
-    def get_pin(self, i):
-        return eb21.m[GPIO.input(p)]
-    def rev_pin(i):
-        p = eb21.board[i]
+        return GPIO.input(eb21.board[name]) == v
+    def get_pin(self, name):
+        return eb21.m[GPIO.input(eb21.board[name])]
+    def rev_pin(name):
+        p = eb21.board[name]
         GPIO.setup(p, GPIO.OUT)
         tmpv = GPIO.input(p)
         GPIO.output(p, not GPIO.input(p))
-        return GPIO.input(eb21.board[i]) != tmpv
+        return GPIO.input(eb21.board[name]) != tmpv
 
 if __name__ == '__main__':
+    GPIO.cleanup()
     GPIO.setmode(GPIO.BOARD)
     eb21.setall((0,0,0,0,0,0,0))
     print(eb21.status())
-    i = int(input('number of pin:'))
+    name = 'p'+input('number of pin:')
     while(i in eb21.board.keys()):
-        if(eb21.rev_pin(i)):
-            print(eb21.m[GPIO.input(eb21.board[i])])
+        if(eb21.rev_pin(name)):
+            print(eb21.m[GPIO.input(eb21.board[name])])
             print(eb21.status(GPIO.OUT))
-            i = int(input('number of pin:'))
+            i = 'p' + input('number of pin:')
         else:
             print('error')
     print(eb21.status(GPIO.OUT))
-    for i in eb21.board.keys():
-        eb21.rev_pin(i)
+    for name in eb21.board.keys():
+        eb21.rev_pin(name)
     time.sleep(2)
     print(eb21.status())
     eb21.setall((0,0,0,0,0,0,0))
