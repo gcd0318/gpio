@@ -2,7 +2,7 @@ from RPi import GPIO
 import time
 from GCStatic import eb21
 
-def run(mode, step=4, idle=0):
+def run(mode='board', step=4, idle=0):
     if(mode == 'board'):
         GPIO.setmode(GPIO.BOARD)
     elif(mode == 'bcm'):

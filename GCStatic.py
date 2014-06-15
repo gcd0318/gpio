@@ -36,11 +36,11 @@ if __name__ == '__main__':
     eb21.setall((0,0,0,0,0,0,0))
     print(eb21.status())
     name = 'p'+input('number of pin:')
-    while(i in eb21.board.keys()):
+    while(name in eb21.board.keys()):
         if(eb21.rev_pin(name)):
             print(eb21.m[GPIO.input(eb21.board[name])])
             print(eb21.status(GPIO.OUT))
-            i = 'p' + input('number of pin:')
+            name = 'p' + input('number of pin:')
         else:
             print('error')
     print(eb21.status(GPIO.OUT))

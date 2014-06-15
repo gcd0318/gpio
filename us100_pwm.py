@@ -16,19 +16,19 @@ def meters(tx, rx):
 
 GPIO.cleanup()
 GPIO.setmode(GPIO.BOARD)
-close = eb21.board[0]
+close = eb21.board['p0']
 cn = 0.1
-near = eb21.board[1]
+near = eb21.board['p1']
 nm = 0.2
-middle = eb21.board[2]
+middle = eb21.board['p2']
 mf = 0.3
-far = eb21.board[3]
+far = eb21.board['p3']
 fa = 0.4
-away = eb21.board[4]
-error = eb21.board[5]
+away = eb21.board['p4']
+error = eb21.board['p5']
 for i in range(5+1):
-    GPIO.setup(eb21.board[i], GPIO.OUT)
-    GPIO.output(eb21.board[i], GPIO.LOW)
+    GPIO.setup(eb21.board['p'+str(i)], GPIO.OUT)
+    GPIO.output(eb21.board['p'+str(i)], GPIO.LOW)
 
 for i in range(2):
     eb21.setall((1,0,1,0,1,0))
@@ -37,8 +37,8 @@ for i in range(2):
     time.sleep(1)
 eb21.setall((0,0,0,0,0,0))
 
-tx = eb21.board[6]
-rx = eb21.board[7]
+tx = eb21.board['p6']
+rx = eb21.board['p7']
 GPIO.setup(rx, GPIO.IN)
 GPIO.setup(tx, GPIO.OUT)
 GPIO.output(tx, GPIO.LOW)

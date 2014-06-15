@@ -6,7 +6,7 @@ def blink(mode):
     for i in range(8):
         if(mode == 'board'):
             GPIO.setmode(GPIO.BOARD)
-            p = eb21.board[i]
+            p = eb21.board['p'+str(i)]
         elif(mode == 'bcm'):
             GPIO.setmode(GPIO.BCM)
             p = eb21.bcm[i]
