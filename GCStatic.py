@@ -4,7 +4,7 @@ class eb21(object):
     board = {'p0':11, 'p1':12, 'p2':13, 'p3':15, 'p4':16, 'p5':18, 'p6':22, 'p7':7}
     bcm = {'p0':17, 'p1':18, 'p2':21, 'p3':22, 'p4':23, 'p5':24, 'p6':25, 'p7':4}
     m = ['LOW', 'HIGH']
-    def setall(mode, s=0):
+    def setall(mode='board', s=0):
         for i in range(len(mode)):
             p = eb21.board['p'+str(s+i)]
             GPIO.setup(p, GPIO.OUT)

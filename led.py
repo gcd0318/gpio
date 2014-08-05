@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 from GCStatic import eb21
 
-def blink(mode):
+def blink(mode='board'):
     for i in range(8):
         if(mode == 'board'):
             GPIO.setmode(GPIO.BOARD)
