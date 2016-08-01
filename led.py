@@ -9,7 +9,7 @@ def blink(mode='board'):
             p = eb21.board['p'+str(i)]
         elif(mode == 'bcm'):
             GPIO.setmode(GPIO.BCM)
-            p = eb21.bcm[i]
+            p = eb21.bcm['p'+str(i)]
         print(i, p)
         GPIO.setup(p, GPIO.OUT)
 #        GPIO.output(p, GPIO.HIGH) #or output(11, GPIO.True)
@@ -21,9 +21,11 @@ def blink(mode='board'):
         GPIO.output(p, GPIO.LOW)
 
 if __name__ == '__main__':
+#    mod = 'board'
+    mod = 'bcm'
     GPIO.cleanup()
-    print('board')
-    blink('board')
+    print(mod)
+    blink(mod)
 #    print('bcm')
 #    blink('bcm')
     GPIO.cleanup()
