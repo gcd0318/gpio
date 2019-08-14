@@ -1,3 +1,0 @@
-class GPIO():
-    def __init__(module = "B"):
-        
